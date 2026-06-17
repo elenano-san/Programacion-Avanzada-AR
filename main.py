@@ -6,6 +6,18 @@ from face_detector import FaceDetection
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "filters"))
 from filtro_nariz import FiltroNariz
+from moustache_filter import MoustacheFilter
+
+
+def select_filter():
+    print("\nFiltros disponibles:")
+    print("  1. Filtro Nariz (punto rojo)")
+    print("  2. Filtro Bigote")
+    choice = input("Elige el número del filtro (enter = nariz): ").strip()
+    if choice == "2":
+        return MoustacheFilter()
+    return FiltroNariz()
+
 
 if __name__ == "__main__":
     cameras = CameraManager.list_available(5)
@@ -23,7 +35,7 @@ if __name__ == "__main__":
         else:
             camera = CameraManager(selected)
             detector = FaceDetection()
-            filtro_nariz = FiltroNariz()
+            filtro = select_filter()
             WINDOW = "Vista previa de camara"
             cv2.namedWindow(WINDOW, cv2.WINDOW_NORMAL)
             print(f"Camara {selected} seleccionada y abierta.")
@@ -36,7 +48,7 @@ if __name__ == "__main__":
                         break
 
                     results = detector.detect_face(frame)
-                    output = filtro_nariz.apply(frame, results.face_landmarks)
+                    output = filtro.apply(frame, results.face_landmarks)
                     cv2.imshow(WINDOW, output)
 
                     key = cv2.waitKey(1) & 0xFF
