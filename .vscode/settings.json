@@ -1,3 +1,15 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:venv"
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnSave": true
+    },
+    "code-runner.executorMap": {
+        "python": "\"${workspaceFolder}\\.venv\\Scripts\\python.exe\" -u"
+    },
+    "code-runner.runInTerminal": true,
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
